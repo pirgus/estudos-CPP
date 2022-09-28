@@ -7,9 +7,9 @@
 
 using namespace std;
 
-extern std::string plvSecreta;
-extern std::vector<char> chutesErrados;
-extern std::map<char, bool> chutou;
+extern string plvSecreta;
+extern vector<char> chutesErrados;
+extern map<char, bool> chutou;
 
 vector<string> leArq();
 void sorteiaPalavra();

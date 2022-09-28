@@ -11,21 +11,21 @@
 
 using namespace std;
 
-extern std::string plvSecreta;
-extern std::vector<char> chutesErrados;
-extern std::map<char, bool> chutou;
+extern string plvSecreta;
+extern vector<char> chutesErrados;
+extern map<char, bool> chutou;
 
-std::vector<string> leArq(){
+vector<string> leArq(){
     ifstream file; // input file stream
     file.open("palavras.txt");
     if(file.is_open()){
         int qtdPlv;
         file >> qtdPlv;
 
-        std::vector<string> arqPlvs;
+        vector<string> arqPlvs;
 
         for(int i = 0; i < qtdPlv; i++){
-            std::string plvLida;
+            string plvLida;
             file >> plvLida;
             arqPlvs.push_back(plvLida);
         }
@@ -34,13 +34,13 @@ std::vector<string> leArq(){
         return arqPlvs;
     }
     else{
-        std::cout << "Nao foi possivel acessar o banco de palavras." << std::endl;
+        cout << "Nao foi possivel acessar o banco de palavras." << endl;
         exit(1);
     }
 }
 
 void sorteiaPalavra(){
-    std::vector<string> palavras = leArq();
+    vector<string> palavras = leArq();
 
     srand(time(NULL));
     int index = rand() % palavras.size();
@@ -48,29 +48,29 @@ void sorteiaPalavra(){
     plvSecreta = palavras[index];
 }
 
-void salvaArq(std::vector<string> novaLista){
+void salvaArq(vector<string> novaLista){
     ofstream file;
     file.open("palavras.txt");
     if(file.is_open()){
         file << novaLista.size() << endl;
-        for(std::string word : novaLista){
+        for(string word : novaLista){
             file << word << endl;
         }
 
         file.close();
     }
     else{
-        std::cout << "Nao foi possivel abrir o arquivo." << std::endl;
+        cout << "Nao foi possivel abrir o arquivo." << endl;
         exit(1);
     }
 }
 
 void adicionaPalavra(){
-    std::cout << "Digite a nova palavra (em letras maiusculas)" << std::endl;
-    std::string novaPalavra;
-    std::cin >> novaPalavra;
+    cout << "Digite a nova palavra (em letras maiusculas)" << endl;
+    string novaPalavra;
+    cin >> novaPalavra;
 
-    std::vector<string> listaPalavras = leArq();
+    vector<string> listaPalavras = leArq();
     listaPalavras.push_back(novaPalavra);
 
     salvaArq(listaPalavras);
@@ -99,45 +99,44 @@ bool letraExiste(char chute){
 }
 
 void chuta(){
-    std::cout << "Seu chute >> ";
+    cout << "Seu chute >> ";
     char chute;
-    std::cin >> chute;
+    cin >> chute;
 
     chutou[chute] = true;
-
     if(letraExiste(chute)){
-        std::cout << "Seu chute esta na palavra" << std::endl;
+        cout << "Seu chute esta na palavra" << endl;
     }
     else{
         chutesErrados.push_back(chute); // joga o chute no FINAL do vetor ==> "push_back"
-        std::cout << "Seu chute nao esta na palavra" << std::endl;
+        cout << "Seu chute nao esta na palavra" << endl;
     }
-    std::cout << std::endl;
+    cout << endl;
 }
 
 void imprimePlv(){
     for(char letra : plvSecreta){
         if(chutou[letra]){
-            std::cout << letra << " ";
+            cout << letra << " ";
         }
         else{
-            std::cout << "_ ";
+            cout << "_ ";
         }
     }
-    std::cout << std::endl;
+    cout << endl;
 }
 
 void imprimeErrados(){
-    std::cout << "Chutes errados: ";
+    cout << "Chutes errados: ";
     for(char letra : chutesErrados){
-        std::cout << letra << " ";
+        cout << letra << " ";
     }
-    std::cout << std::endl;
+    cout << endl;
 }
 
 void imprimeCabec(){
-    std::cout << "*******************" << std::endl;
-    std::cout << "** Jogo da Forca **" << std::endl;
-    std::cout << "*******************" << std::endl;
-    std::cout << std::endl;
+    cout << "*******************" << endl;
+    cout << "** Jogo da Forca **" << endl;
+    cout << "*******************" << endl;
+    cout << endl;
 }
